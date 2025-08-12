@@ -11,11 +11,15 @@
                     </x-nav-link>
                 </div>
 
+                @if (Auth::user()->nivel_acesso==1)
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('filmes.admin')" :active="request()->routeIs('filmes.admin')">
                         {{ __('Administração') }}
                     </x-nav-link>
                 </div>
+
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

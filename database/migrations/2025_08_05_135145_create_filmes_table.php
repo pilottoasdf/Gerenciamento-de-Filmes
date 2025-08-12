@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->string('sinopse');
             $table->string('ano');
-            $table->string('imagem_da_capa');
+            $table->string('imagem_da_capa')->nullable();
             $table->string('link_trailer');
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->timestamps();

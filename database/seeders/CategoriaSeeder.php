@@ -18,6 +18,8 @@ class CategoriaSeeder extends Seeder
         Categoria::create(['nome' => 'Ficção',]);
         Categoria::create(['nome' => 'Mistério',]);
         Categoria::create(['nome' => 'Terror',]);
+        Categoria::create(['nome' => 'Drama',]);
+        Categoria::create(['nome' => 'Comédia',]);
 
     }
 }

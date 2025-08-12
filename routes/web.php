@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/filmes/create', [FilmeController::class, 'create'])->name('filme.create');
     Route::post('/filmes/store', [FilmeController::class, 'store'])->name('filme.store');
 
+    Route::get('/filmes/info/{id}', [FilmeController::class, 'info'])->name('filme.info');
+
 });
 
 

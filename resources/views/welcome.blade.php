@@ -1,41 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Página Inicial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-col justify-center align-center w-full h-full min-h-full">
-    <main class="flex w-full flex-col lg:flex-col justify-center min-h-96 border-solid border border-black">
-        <h1 class="text-xl">Gerenciador de Filmes</h1>
+<body class="flex items-center justify-center min-h-full bg-gray-50 text-gray-900 font-sans">
+
+    <main class="bg-white border border-black rounded-lg shadow-md p-8 w-full max-w-md flex flex-col gap-6">
+        <h1 class="text-xl font-bold text-center">Gerenciador de Filmes</h1>
 
         @if (Route::has('login'))
-            <div class="flex items-center justify-end gap-4">
+            <div class="flex justify-center gap-4">
                 @auth
-                    <a
-                        href="{{ url('/filmes') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                    >
-                        Entrar
+                    <a href="{{ url('/filmes') }}"
+                       class="inline-block px-6 py-2 border border-gray-300 rounded-sm text-sm font-medium hover:border-gray-400 transition-colors">
+                       Entrar
                     </a>
                 @else
-                    <a
-                        href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                    >
-                        Log in
+                    <a href="{{ route('login') }}"
+                       class="inline-block px-6 py-2 border border-gray-300 rounded-sm text-sm font-medium hover:border-gray-400 transition-colors">
+                       Fazer Login
                     </a>
 
                     @if (Route::has('register'))
-                        <a
-                            href="{{ route('register') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                            Register
+                        <a href="{{ route('register') }}"
+                           class="inline-block px-6 py-2 border border-gray-300 rounded-sm text-sm font-medium hover:border-gray-400 transition-colors">
+                           Registrar
                         </a>
                     @endif
                 @endauth
             </div>
         @endif
     </main>
+
 </body>
 </html>

@@ -10,14 +10,18 @@ use Illuminate\Support\Facades\Auth;
 class FilmeController extends Controller
 {
     public function showFilmes(){
-        return view('filmes/index');
+        $filmes = Filme::all();
+
+        return view('filmes/index', ['filmes'=>$filmes]);
     }
 
     public function admin(){
         $user = Auth::user();
 
         if($user->nivel_acesso==1){
-            return view('filmes/admin');
+            $filmes = Filme::all();
+            
+            return view('filmes/admin', ['filmes'=>$filmes]);
         }else{
             return redirect()->route('filmes');
         }

@@ -5,11 +5,29 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 bg-gray-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+            <div class="bg-white p-6 shadow-sm sm:rounded-lg">
+                <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    @foreach ($filmes as $filme)
+                        <div class="bg-white rounded-lg shadow transition duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-gray-400 overflow-hidden cursor-pointer">
+                            @if ($filme->imagem_da_capa) 
+                                <img src="{{ asset('storage/' . $filme->imagem_da_capa) }}" 
+                                     alt="imagem"
+                                     class="w-full h-48 object-cover">
+                            @else
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                                    Sem imagem
+                                </div>
+                            @endif
+
+                            <div class="p-4 flex flex-col gap-1">
+                                <span class="text-lg font-semibold truncate">{{ $filme->nome }}</span>
+                                <span class="text-sm text-gray-600">Categoria: {{ $filme->categoria->nome }}</span>
+                                <span class="text-sm text-gray-600">Ano: {{ $filme->ano }}</span>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

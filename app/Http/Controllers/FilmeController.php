@@ -88,7 +88,6 @@ class FilmeController extends Controller
 
         if ($filme->imagem_da_capa) {
             \Illuminate\Support\Facades\Storage::disk('public')->delete($filme->imagem_da_capa);
-            $filme->imagem_da_capa = null;
             $filme->save();
         }
         $filme->delete();
@@ -119,11 +118,8 @@ class FilmeController extends Controller
 
                     $request->validate(['imagem_da_capa' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048']);
 
-                    if(isset($filme->imagem_da_capa)){
-                        \Illuminate\Support\Facades\Storage::delete('public/' . $filme->imagem_da_capa);
-                        $filme->imagem_da_capa = null;
-                        $filme->save();
-
+                    if($filme->imagem_da_capa){
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($filme->imagem_da_capa);
                     }
 
                     $imagem = $request->file('imagem_da_capa');

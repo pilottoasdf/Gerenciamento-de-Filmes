@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class FilmeController extends Controller
 {
-    public function showFilmes(){
-        $filmes = Filme::all();
+    public function showFilmes(Request $request){
+        if($request->categoria_id!=0 && $request->ano!=null){
+            $filmes=Filme::where('categoria_id', $request->categoria_id)->where('ano', $request->ano)->get();
+        }else if($request->categoria_id!=0){
+            $filmes=Filme::where('categoria_id', $request->categoria_id)->get();
+        }else if($request->ano!=null){
+            $filmes=Filme::where('ano', $request->ano)->get();
+        }else{
+            $filmes = Filme::all();
+        }
+        
+        $categorias = Categoria::all();
 
-        return view('filmes/index', ['filmes'=>$filmes]);
+        return view('filmes/index', ['filmes'=>$filmes, 'categorias'=>$categorias]);
     }
 
     public function admin(){
@@ -20,11 +30,17 @@ class FilmeController extends Controller
 
         if($user->nivel_acesso==1){
             $filmes = Filme::all();
-            
+
             return view('filmes/admin', ['filmes'=>$filmes]);
         }else{
             return redirect()->route('filmes');
         }
+    }
+
+    public function info($id){
+        $filme = Filme::with('categoria')->findOrFail($id);
+        return view('filmes/info', ['filme'=>$filme]);
+
     }
 
     public function create(){

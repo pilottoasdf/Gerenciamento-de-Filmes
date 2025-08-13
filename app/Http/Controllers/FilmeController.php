@@ -60,4 +60,71 @@ class FilmeController extends Controller
         }
         return redirect()->route('filmes.admin');
     }
+
+    public function destroy($id){
+        $user = Auth::user();
+
+        if($user->nivel_acesso != 1){
+            return redirect()->route('filmes')->with('error', 'Acesso negado');
+        }
+
+        $filme = Filme::findOrFail($id);
+
+        if ($filme->imagem_da_capa) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($filme->imagem_da_capa);
+            $filme->imagem_da_capa = null;
+            $filme->save();
+        }
+        $filme->delete();
+
+        return redirect()->route('filmes.admin');
+    }
+
+    public function edit($id){
+        $user = Auth::user();
+
+        if($user->nivel_acesso != 1){
+            return redirect()->route('filmes')->with('error', 'Acesso negado');
+        }
+
+        $filme = Filme::findOrFail($id);
+        $categorias = Categoria::all();
+
+        return view('filmes/edit', ['filme'=>$filme, 'categorias'=>$categorias]);
+    }
+
+    public function update(Request $request, $id){
+        $user = Auth::user(); 
+
+            if ($user->nivel_acesso == 1) {
+                $filme = Filme::findOrFail($id);
+
+                if($request->hasFile('imagem_da_capa')){
+
+                    $request->validate(['imagem_da_capa' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048']);
+
+                    if(isset($filme->imagem_da_capa)){
+                        \Illuminate\Support\Facades\Storage::delete('public/' . $filme->imagem_da_capa);
+                        $filme->imagem_da_capa = null;
+                        $filme->save();
+
+                    }
+
+                    $imagem = $request->file('imagem_da_capa');
+                    $caminhoImagem = $imagem->store('filmes', 'public');
+                    $filme->imagem_da_capa = $caminhoImagem;
+                    $filme->save();
+                }
+
+            $filme->nome = $request->nome;
+            $filme->sinopse = $request->sinopse;
+            $filme->ano = $request->ano;
+            $filme->categoria_id = $request->categoria_id;
+            $filme->link_trailer = $request->link_trailer;
+
+            $filme->save();
+
+            return redirect()->route('filmes.admin')->with('success', 'Filme atualizado com sucesso!');
+        }
+    }
 }

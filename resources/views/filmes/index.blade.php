@@ -14,14 +14,14 @@
                     <select name="categoria_id" id="categoria_id">
                         <option value="0">Todas</option>
                         @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                            <option value="{{ $categoria->id }}" {{ ($categoria_id==$categoria->id) ? 'selected' : '' }}>{{ $categoria->nome }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div>
                     <x-input-label for="ano" :value="__('Ano')" />
                     <x-text-input id="ano" class="block mt-1 w-24" type="number" name="ano"
-                    :value="old('ano')" autofocus />
+                    value="{{ $ano }}" autofocus />
                 </div>
 
                 <x-primary-button class="m-5">Filtrar</x-primary-button>

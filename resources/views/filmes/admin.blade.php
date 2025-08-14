@@ -5,11 +5,11 @@
         </h2>
     </x-slot>
 
-    <a href="{{ route('filme.create') }}"><x-primary-button>Adicionar filme</x-primary-button></a>
 
     <div class="py-12 bg-gray-100">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white p-6 shadow-sm sm:rounded-lg">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 g-5">
+            <a href="{{ route('filme.create') }}"><x-primary-button>Adicionar filme</x-primary-button></a>
+            <div class="bg-white p-6 shadow-sm sm:rounded-lg mt-4">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     @foreach ($filmes as $filme)
                         <div class="bg-white rounded-lg shadow transition duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-gray-400 overflow-hidden cursor-pointer">

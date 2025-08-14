@@ -121,6 +121,8 @@ class FilmeController extends Controller
     public function update(Request $request, $id){
         $user = Auth::user(); 
 
+        $link_embed = str_replace('watch?v=', 'embed/', $request->link_trailer);;
+
             if ($user->nivel_acesso == 1) {
                 $filme = Filme::findOrFail($id);
 
@@ -145,7 +147,7 @@ class FilmeController extends Controller
             $filme->sinopse = $request->sinopse;
             $filme->ano = $request->ano;
             $filme->categoria_id = $request->categoria_id;
-            $filme->link_trailer = $request->link_trailer;
+            $filme->link_trailer = $link_embed;
 
             $filme->save();
 

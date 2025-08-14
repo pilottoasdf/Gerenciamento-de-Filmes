@@ -20,4 +20,8 @@ class Filme extends Model
     public function categoria():BelongsTo{
         return $this->belongsTo(Categoria::class);
     }
+
+    public function favorited(){
+        return $this->belongsToMany(User::class, 'favorites', 'filme_id', 'user_id')->withTimestamps();
+    }
 }

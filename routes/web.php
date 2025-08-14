@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FilmeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/filmes/info/{id}', [FilmeController::class, 'info'])->name('filme.info');
 
+    Route::post('/filmes/favorites/{id}', [FavoriteController::class, 'favoriteOrNot'])->name('filme.favorite');
+    Route::get('/filmes/favorites', [FavoriteController::class, 'showFavorites'])->name('filme.favorites');
 });
 
 

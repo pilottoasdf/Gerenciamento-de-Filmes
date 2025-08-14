@@ -26,6 +26,9 @@
 
                 <x-primary-button class="m-5">Filtrar</x-primary-button>
             </form>
+
+            <a href="{{ route('filme.favorites') }}" class="text-blue-500 hover:underline">Ver Filmes Favoritos</a>
+
             <div class="bg-white p-6 shadow-sm sm:rounded-lg">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     @if ($filmes->isNotEmpty())
@@ -47,6 +50,13 @@
                                         <span class="text-sm text-gray-600">Categoria: {{ $filme->categoria->nome }}</span>
                                         <span class="text-sm text-gray-600">Ano: {{ $filme->ano }}</span>
                                     </div>
+
+                                    <form action="{{ route('filme.favorite', $filme->id) }}" method="post">
+                                        @csrf
+                                        <button type="submit">
+                                            {{ Auth::user()->favoriteMovies->contains($filme->id) ? 'Desfavoritar' : 'Favoritar' }}
+                                        </button>
+                                    </form>
                                 </div>
                             </a>
                         @endforeach

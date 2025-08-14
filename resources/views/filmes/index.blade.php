@@ -8,7 +8,7 @@
     <div class="py-12 bg-gray-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <span class="text-xl ms-5">Filtrar por</span>
-            <form method="GET" class="flex flex-row justify-evenly align w-2/5">
+            <form method="GET" class="flex flex-row justify-evenly align w-2/5 mb-10">
                 <div>
                     <x-input-label for="categoria_id" :value="__('Categoria')" />
                     <select name="categoria_id" id="categoria_id">
@@ -27,11 +27,11 @@
                 <x-primary-button class="m-5">Filtrar</x-primary-button>
             </form>
 
-            <a href="{{ route('filme.favorites') }}" class="text-blue-500 hover:underline">Ver Filmes Favoritos</a>
+            <a href="{{ route('filme.favorites') }}" class="p-3 border-none text-white rounded-lg bg-blue-950">Favoritados</a>
 
-            <div class="bg-white p-6 shadow-sm sm:rounded-lg">
+            <div class="bg-white p-6 shadow-sm sm:rounded-lg mt-5">
                 <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    @if ($filmes->isNotEmpty())
+                    @if ($filmes->isNotEmpty()) 
                         @foreach ($filmes as $filme)
                             <a href="{{ route('filme.info', $filme->id) }}">
                                 <div class="bg-white rounded-lg shadow transition duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-gray-400 overflow-hidden cursor-pointer">
@@ -53,7 +53,7 @@
 
                                     <form action="{{ route('filme.favorite', $filme->id) }}" method="post">
                                         @csrf
-                                        <button type="submit">
+                                        <button type="submit" class="p-1 m-3 border rounded-md text-sm bg-gray-100">
                                             {{ Auth::user()->favoriteMovies->contains($filme->id) ? 'Desfavoritar' : 'Favoritar' }}
                                         </button>
                                     </form>

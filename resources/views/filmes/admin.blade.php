@@ -20,7 +20,7 @@
                             @else
                                 <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
                                     Sem imagem
-                                </div>
+                                </div> 
                             @endif
 
                             <div class="p-4 flex flex-col gap-1">
@@ -34,7 +34,7 @@
                                         Excluir
                                     </button>
                                 </form>
-                                <a href="{{ route('filme.edit', $filme->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{{ route('filme.edit', $filme->id) }}" class="btn btn-warning btn-sm p-2 text-gray-600">Editar</a>
                             </div>
                         </div>
                     @endforeach

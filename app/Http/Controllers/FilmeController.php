@@ -19,10 +19,13 @@ class FilmeController extends Controller
         }else{
             $filmes = Filme::all();
         }
-        
+
+        $categoria_id = $request->categoria_id ?? null;
+        $ano = $request->ano ?? null;
+
         $categorias = Categoria::all();
 
-        return view('filmes/index', ['filmes'=>$filmes, 'categorias'=>$categorias]);
+        return view('filmes/index', ['filmes'=>$filmes, 'categorias'=>$categorias, 'categoria_id'=>$categoria_id, 'ano'=>$ano]);
     }
 
     public function admin(){

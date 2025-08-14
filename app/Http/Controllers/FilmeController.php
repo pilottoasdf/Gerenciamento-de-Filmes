@@ -59,6 +59,8 @@ class FilmeController extends Controller
     public function store(Request $request){
         $request->validate(['imagem_da_capa' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048']);
 
+        $link_embed = str_replace('watch?v=', 'embed/', $request->link_trailer);;
+
         if($request->hasFile('imagem_da_capa')){
             $imagem = $request->file('imagem_da_capa');
             $caminhoImagem = $imagem->store('filmes', 'public');
@@ -69,10 +71,17 @@ class FilmeController extends Controller
                 'ano'=> $request->ano,
                 'imagem_da_capa'=> $caminhoImagem,
                 'categoria_id'=> $request->categoria_id,
-                'link_trailer'=> $request->link_trailer,
+                'link_trailer'=> $link_embed,
             ]);
         }else{
-            Filme::create($request->all());
+
+            Filme::create([
+                'nome'=> $request->nome,
+                'sinopse'=> $request->sinopse,
+                'ano'=> $request->ano,
+                'categoria_id'=> $request->categoria_id,
+                'link_trailer'=> $link_embed,
+            ]);
         }
         return redirect()->route('filmes.admin');
     }
